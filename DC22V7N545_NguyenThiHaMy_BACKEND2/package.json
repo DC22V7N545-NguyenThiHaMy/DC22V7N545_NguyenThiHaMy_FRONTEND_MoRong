@@ -1,0 +1,31 @@
+{
+  "name": "dc22v7n545_nguyenthihamy_backend1",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/DC22V7N545-NguyenThiHaMy/DC22V7N545_NguyenThiHaMy_BACKEND1#readme",
+  "bugs": {
+    "url": "https://github.com/DC22V7N545-NguyenThiHaMy/DC22V7N545_NguyenThiHaMy_BACKEND1/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DC22V7N545-NguyenThiHaMy/DC22V7N545_NguyenThiHaMy_BACKEND1.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "mongodb": "^7.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^10.1.0",
+    "eslint-config-prettier": "^10.1.8",
+    "nodemon": "^3.1.14",
+    "prettier": "^3.8.1"
+  }
+}

@@ -1,0 +1,6 @@
+@import './base.css';
+
+/* Reset lại #app để không xung đột với Bootstrap container */
+#app {
+  font-weight: normal;
+}
