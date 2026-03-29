@@ -3,7 +3,7 @@
             <div class="col-md-10">
                 <InputSearch v-model="searchText" />
             </div>
-            <div class="md-3 col-md-6">
+            <div class="mb-3 col-md-6">
                 <h4>
                     Danh bạ 
                     <i class="fas fa-address-book"></i>
@@ -88,14 +88,15 @@ export default {
         contactStrings() {
             return this.contacts.map((contact) => {
                 const { name, email, address, phone } = contact;
-                return [name, email, address, phone].join("");
+                return [name, email, address, phone].join("").toLowerCase();
             });
         },
         // Trả về các contact có chứa thông tin cần tìm kiếm.
         filteredContacts() {
             if (!this.searchText) return this.contacts;
-            return this.contacts.filter((_idcontact, index) =>
-                this.contactStrings[index].includes(this.searchText)
+            const searchTextLower = this.searchText.toLowerCase();
+            return this.contacts.filter((contact, index) =>
+                this.contactStrings[index].includes(searchTextLower)
             );
         },
         activeContact() {
@@ -103,7 +104,7 @@ export default {
             if (this.activeIndex < 0) return null;
             return this.filteredContacts[this.activeIndex];
         },
-        filteredContactsCout() {
+        filteredContactsCount() {
             return this.filteredContacts.length;
         },
     },
