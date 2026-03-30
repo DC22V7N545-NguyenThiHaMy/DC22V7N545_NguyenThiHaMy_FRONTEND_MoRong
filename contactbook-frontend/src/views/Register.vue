@@ -5,10 +5,6 @@
         <div class="card-body p-4">
           <h4 class="mb-3">Đăng ký tài khoản</h4>
 
-          <div v-if="successMessage" class="alert alert-success" role="alert">
-            {{ successMessage }}
-          </div>
-
           <Form @submit="submitRegister" :validation-schema="registerSchema">
             <div class="form-group">
               <label for="name">Tên</label>
@@ -107,8 +103,7 @@
 <script>
 import * as yup from "yup";
 import { Form, Field, ErrorMessage } from "vee-validate";
-
-const REGISTER_STORAGE_KEY = "registeredUsers";
+import AuthService from "@/services/auth.service";
 
 export default {
   components: {
@@ -145,36 +140,29 @@ export default {
       registerSchema,
       showPassword: false,
       showConfirmPassword: false,
-      successMessage: "",
     };
   },
   methods: {
-    submitRegister(values, { resetForm }) {
+    submitRegister(values) {
       const confirmRegister = window.confirm("Bạn có muốn đăng ký không?");
       if (!confirmRegister) {
         return;
       }
 
-      const existingUsers = JSON.parse(localStorage.getItem(REGISTER_STORAGE_KEY) || "[]");
-      const existedEmail = existingUsers.some((user) => user.email === values.email);
-
-      if (existedEmail) {
-        alert("Email này đã được đăng ký. Vui lòng dùng email khác.");
-        return;
-      }
-
-      existingUsers.push({
+      const result = AuthService.register({
         name: values.name,
         email: values.email,
         phone: values.phone,
         password: values.password,
       });
 
-      localStorage.setItem(REGISTER_STORAGE_KEY, JSON.stringify(existingUsers));
-      this.successMessage = "Đăng ký thành công. Bạn có thể dùng thông tin này để đăng nhập.";
-      resetForm();
-      this.showPassword = false;
-      this.showConfirmPassword = false;
+      if (!result.success) {
+        alert(result.message);
+        return;
+      }
+
+      alert("Đăng ký thành công. Mời bạn đăng nhập.");
+      this.$router.push({ name: "login" });
     },
   },
 };
