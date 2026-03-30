@@ -45,6 +45,17 @@ const logout = () => {
   localStorage.removeItem(CURRENT_USER_KEY);
 };
 
+const loginWithSocial = (payload) => {
+  const safeUser = {
+    name: payload.name || "Người dùng",
+    email: payload.email || "",
+    phone: payload.phone || "",
+    provider: payload.provider,
+  };
+  localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(safeUser));
+  return { success: true, user: safeUser };
+};
+
 const isAuthenticated = () => Boolean(getCurrentUser());
 
 const register = (payload) => {
@@ -70,6 +81,7 @@ export default {
   getCurrentUser,
   register,
   login,
+  loginWithSocial,
   logout,
   isAuthenticated,
 };
