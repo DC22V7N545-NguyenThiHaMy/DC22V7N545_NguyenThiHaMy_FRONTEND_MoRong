@@ -24,11 +24,26 @@
       <ErrorMessage name="phone" class="error-feedback" />
     </div>
 
-    <div class="form-group form-check">
-      <input name="favorite" type="checkbox" class="form-check-input" v-model="contactLocal.favorite" />
-      <label for="favorite" class="form-check-label">
-        <strong>Liên hệ yêu thích</strong>
-      </label>
+    <div class="form-group">
+      <label><strong>Sở thích</strong></label>
+      <div class="d-flex flex-wrap gap-3">
+        <div class="form-check mr-3">
+          <input id="hobby1" name="favorite" type="checkbox" class="form-check-input" value="Âm nhạc" v-model="contactLocal.favorite" />
+          <label for="hobby1" class="form-check-label">Âm nhạc</label>
+        </div>
+        <div class="form-check mr-3">
+          <input id="hobby2" name="favorite" type="checkbox" class="form-check-input" value="Thể thao" v-model="contactLocal.favorite" />
+          <label for="hobby2" class="form-check-label">Thể thao</label>
+        </div>
+        <div class="form-check mr-3">
+          <input id="hobby3" name="favorite" type="checkbox" class="form-check-input" value="Bóng đá" v-model="contactLocal.favorite" />
+          <label for="hobby3" class="form-check-label">Bóng đá</label>
+        </div>
+        <div class="form-check mr-3">
+          <input id="hobby4" name="favorite" type="checkbox" class="form-check-input" value="Khác" v-model="contactLocal.favorite" />
+          <label for="hobby4" class="form-check-label">Khác</label>
+        </div>
+      </div>
     </div>
 
     <div class="form-group">
@@ -76,10 +91,16 @@ export default {
           "Số điện thoại không hợp lệ."
         ),
     });
+    const contactLocal = { ...this.contact };
+    if (!Array.isArray(contactLocal.favorite)) {
+      // Chuyển đổi dữ liệu cũ (boolean) thành mảng để tương thích với checkbox dạng nhóm
+      contactLocal.favorite = contactLocal.favorite ? ["Khác"] : [];
+    }
+
     return {
       // Chúng ta sẽ không muốn hiệu chỉnh props, nên tạo biến cục bộ
       // contactLocal để liên kết với các input trên form
-      contactLocal: this.contact,
+      contactLocal,
       contactFormSchema,
     };
   },

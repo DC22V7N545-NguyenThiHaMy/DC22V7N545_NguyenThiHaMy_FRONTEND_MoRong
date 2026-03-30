@@ -25,9 +25,11 @@ export default {
             {{ contact.phone }}
         </div>
         <div class="p-1">
-            <strong>Liên hệ yêu thích:</strong>
-            <i v-if="contact.favorite" class="fas fa-check"></i>
-            <i v-else class="fas fa-times"></i>
+            <strong>Sở thích:</strong>
+            <span v-if="Array.isArray(contact.favorite) && contact.favorite.length > 0">
+                {{ contact.favorite.join(', ') }}
+            </span>
+            <span v-else>Không có</span>
         </div>
     </div>
 </template>
